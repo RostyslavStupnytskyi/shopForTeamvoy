@@ -24,7 +24,7 @@ public class OrderService {
     public void createAndSaveOrderFromOrderCreationRequest(OrderCreationRequest orderCreationRequest) throws OrderQuantityVeryBigException {
         validateOrderCreationRequestForItemQuantity(orderCreationRequest);
         Order order = mapOrderCreationRequestToOrder(orderCreationRequest);
-        minusItemQuantityByOrder(order);
+        minusItemQuantityForOrder(order);
         saveOrderInDatabase(order);
     }
 
@@ -32,7 +32,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    private void minusItemQuantityByOrder(Order order) {
+    private void minusItemQuantityForOrder(Order order) {
         itemService.minusValueFromItemQuantity(order.getItem(), order.getQuantity());
     }
 
